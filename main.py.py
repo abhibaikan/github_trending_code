@@ -9,11 +9,9 @@ import requests
 from bs4 import BeautifulSoup as bs
 import pprint
 
-url=input("enter github url:" )
-
 def get_trending_repo():
     
-    r = requests.get(url)
+    r = requests.get("https://github.com/trending")
     
     if r.status_code != 200:
         print("error")
@@ -32,12 +30,18 @@ def get_trending_repo():
         repo = {"label": href_link,
                  "link" :"https://github.com{}".format(href_link) }
         trending_repo.append(repo)
-    return trending_repo
-        
+    return trending_repo        
 
 if __name__ == '__main__':
     print("scriping started")
-    rps=get_trending_repo()
-    pprint.pprint(rps)
+    
+    data=get_trending_repo()
+    
+    f=open('output.txt','w')
+    pprint.pprint(data,f)
+    f.close()
+
+    
+
 
     
